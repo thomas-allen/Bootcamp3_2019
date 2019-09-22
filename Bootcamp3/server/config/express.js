@@ -1,10 +1,10 @@
-var path = require('path'),  
-    express = require('express'),  //refers to Express the middleware helper for Node.js 
+var path = require('path'),
+    express = require('express'),  //refers to Express the middleware helper for Node.js
     mongoose = require('mongoose'),
     morgan = require('morgan'),
     bodyParser = require('body-parser'),
     config = require('./config'),
-    listingsRouter = require('../routes/listings.server.routes'), 
+    listingsRouter = require('../routes/listings.server.routes'),
     getCoordinates = require('../controllers/coordinates.server.controller.js');
 
 module.exports.init = function() {
@@ -19,7 +19,7 @@ module.exports.init = function() {
   //enable request logging for development debugging
   app.use(morgan('dev'));
 
-  //body parsing middleware 
+  //body parsing middleware
   app.use(bodyParser.json());
 
   /* serve static files - see http://expressjs.com/en/starter/static-files.html */
@@ -29,7 +29,7 @@ module.exports.init = function() {
 
   /* Request Handler for route /api/lisings
      Update the code to meet the required format - app.use('/api/listings', appropriateMiddlewWare)
-     use the listings router middleware for requests to the api 
+     use the listings router middleware for requests to the api
      check the variables list above
   */
   app.use('/api/listings');
@@ -43,10 +43,10 @@ module.exports.init = function() {
 
 
   /* Request Handeler for all other routes
-     Sends a response (res) to go to the homepage for all routes not specified */ 
+     Sends a response (res) to go to the homepage for all routes not specified */
   app.all('/*', function(req, res) {
-   
-   /*Add YOUR CODE HERE 
+
+   /*Add YOUR CODE HERE
       see https://expressjs.com/en/api.html#res.sendFile
       see https://nodejs.org/api/path.html
       The path.resolve() method returns a string and resolves a sequence of paths or path segments into an absolute path.
@@ -54,6 +54,6 @@ module.exports.init = function() {
    */
    //res.sendFile(path.resolve(...));
   });
-  
+
   return app;
-};  
+};
