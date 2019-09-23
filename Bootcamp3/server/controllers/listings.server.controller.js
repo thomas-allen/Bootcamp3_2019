@@ -1,21 +1,21 @@
 
 /* Dependencies */
-var mongoose = require('mongoose'), 
+var mongoose = require('mongoose'),
     Listing = require('../models/listings.server.model.js'),
     coordinates = require('./coordinates.server.controller.js');
-    
+
 /*
   In this file, you should use Mongoose queries in order to retrieve/add/remove/update listings.
-  On an error you should send a 404 status code, as well as the error message. 
+  On an error you should send a 404 status code, as well as the error message.
   On success (aka no error), you should send the listing(s) as JSON in the response.
 
-  HINT: if you are struggling with implementing these functions refer back to this tutorial 
+  HINT: if you are struggling with implementing these functions refer back to this tutorial
   https://www.callicoder.com/node-js-express-mongodb-restful-crud-api-tutorial/
   or
   https://medium.com/@dinyangetoh/how-to-build-simple-restful-api-with-nodejs-expressjs-and-mongodb-99348012925d
-  
 
-  If you are looking for more understanding of exports and export modules - 
+
+  If you are looking for more understanding of exports and export modules -
   https://www.sitepoint.com/understanding-module-exports-exports-node-js/
   or
   https://adrianmejia.com/getting-started-with-node-js-modules-require-exports-imports-npm-and-beyond/
@@ -30,11 +30,11 @@ exports.create = function(req, res) {
   /* save the coordinates (located in req.results if there is an address property) */
   if(req.results) {
     listing.coordinates = {
-      latitude: req.results.lat, 
+      latitude: req.results.lat,
       longitude: req.results.lng
     };
   }
- 
+
   /* Then save the listing */
   listing.save(function(err) {
     if(err) {
@@ -42,7 +42,6 @@ exports.create = function(req, res) {
       res.status(400).send(err);
     } else {
       res.json(listing);
-      console.log(listing)
     }
   });
 };
@@ -55,15 +54,24 @@ exports.read = function(req, res) {
 
 /* Update a listing - note the order in which this function is called by the router*/
 exports.update = function(req, res) {
-  var listing = req.listing;
+    var listing = req.listing;
+    var query = { _id: listing._id };
+    Listing.findOneAndUpdate(query, req.body, { new: true }, (e, data) => {
+        if (e) {
+            console.log(e);
+            res.status(400).send(e);
+        }
+        else {
+            res.json(data);
+        }
+    });
+};
 
   /* Replace the listings's properties with the new properties found in req.body */
- 
-  /*save the coordinates (located in req.results if there is an address property) */
- 
-  /* Save the listing */
 
-};
+  /*save the coordinates (located in req.results if there is an address property) */
+
+  /* Save the listing */
 
 /* Delete a listing */
 exports.delete = function(req, res) {
@@ -75,14 +83,21 @@ exports.delete = function(req, res) {
 
 /* Retreive all the directory listings, sorted alphabetically by listing code */
 exports.list = function(req, res) {
-  /* Add your code */
+   Listing.find({}, (e, data) => {
+      if (e) {
+         res.status(400).send(e);
+      }
+      else {
+         res.json(data);
+      }
+   });
 };
 
-/* 
-  Middleware: find a listing by its ID, then pass it to the next request handler. 
+/*
+  Middleware: find a listing by its ID, then pass it to the next request handler.
 
-  HINT: Find the listing using a mongoose query, 
-        bind it to the request object as the property 'listing', 
+  HINT: Find the listing using a mongoose query,
+        bind it to the request object as the property 'listing',
         then finally call next
  */
 exports.listingByID = function(req, res, next, id) {
