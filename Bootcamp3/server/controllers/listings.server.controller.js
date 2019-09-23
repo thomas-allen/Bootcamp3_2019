@@ -75,10 +75,17 @@ exports.update = function(req, res) {
 
 /* Delete a listing */
 exports.delete = function(req, res) {
-  var listing = req.listing;
+    id = req.params.listingId;
+    var query = { _id: id };
 
-  /* Add your code to remove the listins */
-
+    Listing.deleteOne(query, (e) => {
+        if (e) {
+            res.status(400).send(e);
+        }
+        else {
+            res.status(200).send(`Entry with id: ${id} deleted!`);
+        }
+    });
 };
 
 /* Retreive all the directory listings, sorted alphabetically by listing code */
