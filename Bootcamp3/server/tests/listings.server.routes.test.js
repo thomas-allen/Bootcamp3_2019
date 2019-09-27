@@ -29,7 +29,7 @@ describe('Listings CRUD tests', function() {
         done();
       });
   });*/
-  it('should be able to retrieve a single listing', function(done) {
+  /*it('should be able to retrieve a single listing', function(done) {
     Listing.findOne({name: 'Library West'}, function(err, listing) {
       if(err) {
         console.log(err);
@@ -91,7 +91,7 @@ describe('Listings CRUD tests', function() {
       });
   });
 
-  /*it('should be able to delete a listing', function(done) {
+  it('should be able to delete a listing', function(done) {
     agent.delete('/api/listings/' + id)
       .expect(200)
       .end(function(err, res) {
@@ -116,7 +116,7 @@ describe('Listings CRUD tests', function() {
   You can comment the two coordinate tests until you have completed the code the 
   coordinates.server.controlelr.js file 
 */
-  /*it('should be able to save a listing with coordinates', function(done) {
+  it('should be able to save a listing with coordinates', function(done) {
     var listing2 = {
       code: 'GMC', 
       name: 'Dr. Gardner-McCunes Office', 
@@ -138,7 +138,7 @@ describe('Listings CRUD tests', function() {
       });
   });
 
-  it('should be able to delete the listing with coordinates', function(done) {
+  /*it('should be able to delete the listing with coordinates', function(done) {
     agent.delete('/api/listings/' + id2)
       .expect(200)
       .end(function(err, res) {
@@ -151,7 +151,7 @@ describe('Listings CRUD tests', function() {
             done();
           });
       })
-  });
+  });*/
 
   after(function(done) {
     if(id) {
@@ -165,5 +165,5 @@ describe('Listings CRUD tests', function() {
         done();
       });
     }else done();
-  }); */
+  });
 });
