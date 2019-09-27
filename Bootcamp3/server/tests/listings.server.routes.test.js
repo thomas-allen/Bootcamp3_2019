@@ -19,7 +19,7 @@ describe('Listings CRUD tests', function() {
     done();
   });
 
-  /*it('should it able to retrieve all listings', function(done) {
+  it('should it able to retrieve all listings', function(done) {
     agent.get('/api/listings')
       .expect(200)
       .end(function(err, res) {
@@ -28,8 +28,8 @@ describe('Listings CRUD tests', function() {
         res.body.should.have.length(147);
         done();
       });
-  });*/
-  /*it('should be able to retrieve a single listing', function(done) {
+  });
+  it('should be able to retrieve a single listing', function(done) {
     Listing.findOne({name: 'Library West'}, function(err, listing) {
       if(err) {
         console.log(err);
@@ -105,7 +105,7 @@ describe('Listings CRUD tests', function() {
             done();
           });
       })
-  });*/
+  });
 
 /*If this test fails because you haven't completed the  coordinates.server.controlelr.js file 
   use the filter feature in MongoDB Atlas to find and delete the entry
@@ -138,7 +138,7 @@ describe('Listings CRUD tests', function() {
       });
   });
 
-  /*it('should be able to delete the listing with coordinates', function(done) {
+  it('should be able to delete the listing with coordinates', function(done) {
     agent.delete('/api/listings/' + id2)
       .expect(200)
       .end(function(err, res) {
@@ -151,7 +151,7 @@ describe('Listings CRUD tests', function() {
             done();
           });
       })
-  });*/
+  });
 
   after(function(done) {
     if(id) {
