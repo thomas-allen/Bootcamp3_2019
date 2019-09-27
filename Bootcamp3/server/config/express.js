@@ -46,12 +46,6 @@ module.exports.init = function() {
      Sends a response (res) to go to the homepage for all routes not specified */
   app.all('/*', function(req, res) {
 
-   /*Add YOUR CODE HERE
-      see https://expressjs.com/en/api.html#res.sendFile
-      see https://nodejs.org/api/path.html
-      The path.resolve() method returns a string and resolves a sequence of paths or path segments into an absolute path.
-      If no path segments are passed, path.resolve() will return the absolute path of the current working directory.
-   */
    res.sendFile(path.resolve(__dirname + './../../client/index.html'));
   });
 
