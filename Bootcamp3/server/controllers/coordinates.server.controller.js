@@ -20,13 +20,16 @@ module.exports = function(req, res, next) {
             url: 'https://api.opencagedata.com/geocode/v1/json',
             qs: options
         }, function(error, response, body) {
-            var data = JSON.parse(response.body);
-            var loc = data.results[0].geometry;
+            if (!error) {
+                var data = JSON.parse(response.body);
+                var loc = data.results[0].geometry;
 
-            req.body.coordinates = {
-                latitude: loc.lat,
-                longitude: loc.lng
-            };
+                req.body.coordinates = {
+                    latitude: loc.lat,
+                    longitude: loc.lng
+                };
+
+            }
 
             next();
         });
